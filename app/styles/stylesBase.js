@@ -16,6 +16,13 @@ let stylesBase = StyleSheet.create({
         flex:1,
         alignItems:'center',
         justifyContent:'center',
+    },
+    iconStyle:{
+        width:25,
+        height:25,
+    },
+    selectedTitleStyle:{
+        color:'white'
     }
 });
 

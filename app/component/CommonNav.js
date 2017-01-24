@@ -6,9 +6,10 @@ import {
     Text,
     View,
     TouchableOpacity,
-    Dimensions
+
 } from 'react-native'
-const {height, width} = Dimensions.get('window')
+import styleNav from '../styles/nav'
+
 export default class CommonNav extends Component{
     static propTypes ={
         title:PropTypes.string,
@@ -23,19 +24,19 @@ export default class CommonNav extends Component{
 
     render(){
         return(
-            <View style={}>
+            <View style={styleNav.container}>
                 {
                     this.props.canBack
                     ?
-                    <View sytle={}>
+                    <View sytle={styleNav.backStyle}>
                         <TouchableOpacity activeOpacity={0.5} onPress={this.props.doSomething}>
-                            <Text style={styles.backTitleStyle}>返回</Text>
+                            <Text style={styleNav.backTitleStyle}>返回</Text>
                         </TouchableOpacity>
                     </View>
                     :
                     null
                 }
-                <Text style = {}
+                <Text style = {styleNav.titleStyle}>{this.props.title}</Text>
             </View>
         )
     }
