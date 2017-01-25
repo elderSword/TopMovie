@@ -9,6 +9,8 @@ import {
 
 import MovieList from './MovieList'
 import CommonNav from './CommonNav'
+
+import MovieDetail from './MovieDetail'
 export default class Featured extends Component{
     render(){
         return(
@@ -20,14 +22,14 @@ export default class Featured extends Component{
             </View>
         )
     }
+    pushToDetail= (movie) => {
+        this.props.navigator.push({
+            title:movie.title,
+            component:MovieDetail,
+            passProps:{
+                movie:movie
+            }
+        })
+    }
 }
 
-pushToDetail= (movie) => {
-    this.props.navigator.push({
-     title:movie.title,
-        component:MovieDetail,
-        passProps:{
-            movie:movie
-     }
-    })
-}

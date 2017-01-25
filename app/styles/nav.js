@@ -17,7 +17,8 @@ let styleNav = StyleSheet.create({
         justifyContent:'center'
     },
     backStyle:{
-        position:'absolute',
+        justifyContent:'flex-start',
+        alignItems:'flex-start',
         bottom:14,
         left:14
     },
@@ -29,7 +30,8 @@ let styleNav = StyleSheet.create({
     },
     backTitleStyle:{
         fontSize:14,
-        color:'#fff'
+        color:'#fff',
+        marginLeft:13
     }
 })
 

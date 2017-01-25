@@ -2,9 +2,9 @@
 /**
  * Created by jin on 17-1-12.
  */
-'use strict'
+// 'use strict'
 
-import React, {Component} from 'react'
+import React, {Component,PropTypes} from 'react'
 import {
     Text,
     View,
@@ -18,6 +18,10 @@ import stylesBase from '../styles/stylesBase'
 import stylesMovieList from '../styles/stylesMovieList'
 
 export default class MovieList extends Component {
+    static propTypes={
+        pushToDetail: PropTypes.func
+    }
+    static defaultProps={}
     constructor(props) {
         super(props);
 
@@ -70,19 +74,53 @@ export default class MovieList extends Component {
             .done()
     }
 
+
     onEndReached = () => {
         console.log(`到底了！开始：${this.state.start}，总共：${this.state.total}`)
         if(this.state.total>this.state.start){
             this.loadMore()
         }
     }
+
+    render() {
+        if(!this.state.loaded){
+            return(
+                <View style={stylesBase.container}>
+                    <View style={stylesBase.loading}>
+                        <ActivityIndicator size={'large'} color={'#6435c9'}/>
+                        <Text>加载中...</Text>
+                    </View>
+                </View>
+            );
+        }
+        return (
+            <View style={stylesBase.container}>
+                <ListView
+                    pageSize={this.state.count}
+                    initialListSize={this.state.count}
+                    dataSource={this.dataSource.cloneWithRows(this.state.movies)}
+                    renderRow={this.renderMovieList}
+                    renderFooter={this.renderFooter}
+                    onEndReached={this.onEndReached}
+                    onEndReachedThreshold={30}
+                />
+                <Text style={{fontSize: 8}}>已加载：{this.state.start}, 总共：{this.state.total}</Text>
+            </View>
+        )
+    }
+
+    showMovieDetail =(movie) => {
+        this.props.pushToDetail(movie)
+    }
+
     renderMovieList =(movie) =>{
 
         return (
             <TouchableHighlight
                 underlayColor='rgba(34,26,38,0.1)'
                 onPress={()=> {
-                    console.log(`《${movie.title}》被点了！`)
+                    {/*console.log(`《${movie.title}》被点了！`)*/}
+                    this.showMovieDetail(movie)
                 }}
             >
                 <View style={stylesMovieList.item}>
@@ -122,30 +160,5 @@ export default class MovieList extends Component {
         }
     }
 
-    render() {
-        if(!this.state.loaded){
-            return(
-                <View style={stylesBase.container}>
-                    <View style={stylesBase.loading}>
-                        <ActivityIndicator size={'large'} color={'#6435c9'}/>
-                        <Text>加载中...</Text>
-                    </View>
-                </View>
-            );
-        }
-        return (
-            <View style={stylesBase.container}>
-                <ListView
-                    pageSize={this.state.count}
-                    initialListSize={this.state.count}
-                    dataSource={this.dataSource.cloneWithRows(this.state.movies)}
-                    renderRow={this.renderMovieList}
-                    renderFooter={this.renderFooter}
-                    onEndReached={this.onEndReached}
-                    onEndReachedThreshold={30}
-                />
-                <Text style={{fontSize: 8}}>已加载：{this.state.start}, 总共：{this.state.total}</Text>
-            </View>
-        )
-    }
+
 }

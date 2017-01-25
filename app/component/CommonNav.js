@@ -13,8 +13,8 @@ import styleNav from '../styles/nav'
 export default class CommonNav extends Component{
     static propTypes ={
         title:PropTypes.string,
-        doSomething:null,
-        canBack:file
+        doSomething:PropTypes.func,
+        canBack:PropTypes.bool
     }
     static defaultProps ={
         title:'',

@@ -13,11 +13,11 @@ import {
   View,
 } from 'react-native';
 
-import TabNaVigator from 'react-native-tab-navigator'
+import TabNavigator from 'react-native-tab-navigator'
 import Featured from './app/component/Featured'
+import USBox from './app/component/USBox'
 import icons from './app/assets/icons'
 
-import MovieList from './app/component/MovieList'
 import stylesBase from './app/styles/stylesBase'
 class TopMovie extends Component {
   state={
@@ -26,29 +26,48 @@ class TopMovie extends Component {
 
   render() {
     return (
-        // <TabNaVigator tabBarStyle={{backgroundColor:'#6435c9'}}>
-        //   <TabNaVigator.Item
-        //     title={'推荐电影'}
-        //     renderIcon={() => <Image source={{uri:icons.star}} style={stylesBase.iconStyle}/>}
-        //     renderSelectedIcon={() => <Image source={{uri:icons.starActive}} style={stylesBase.iconStyle}/>}
-        //     onPress={()=>{this.setState({selectTab:'featured'})}}
-        //     selected={this.state.selectTab==='featured'}
-        //     selectedTitleStyle={styles.selectedTitleStyle}
-        //     >
-        //     <Navigator
-        //         initialRoute={{name:'推荐电影',component:Featured}}
-        //         configureScene={() => {
-        //           return Navigator.SceneConfigs.PushFromRight;
-        //         }}
-        //         renderScene={(route,navigator) => {
-        //           let Component = route.component;
-        //           return <Component {...route.passProps} navigator={navigator}/>
-        //         }}/>
-        //   </TabNaVigator.Item>
-        // </TabNaVigator>
-      <View style={{flex:1}}>
-        <Featured/>
-      </View>
+        <TabNavigator tabBarStyle={{backgroundColor:'#6435c9'}}>
+          <TabNavigator.Item
+            title={'推荐电影'}
+            renderIcon={() => <Image source={{uri:icons.star}} style={stylesBase.iconStyle}/>}
+            renderSelectedIcon={() => <Image source={{uri:icons.starActive}} style={stylesBase.iconStyle}/>}
+            onPress={()=>{this.setState({selectTab:'featured'})}}
+            selected={this.state.selectTab==='featured'}
+            selectedTitleStyle={stylesBase.selectedTitleStyle}
+            >
+            <Navigator
+                initialRoute={{name:'推荐电影',component:Featured}}
+                configureScene={() => {
+                  return Navigator.SceneConfigs.PushFromRight;
+                }}
+                renderScene={(route,navigator) => {
+                  let Component = route.component;
+                  return <Component {...route.passProps} navigator={navigator}/>
+                }}/>
+          </TabNavigator.Item>
+
+          <TabNavigator.Item
+            title={'北美票房'}
+            renderIcon={() => <Image source={{uri:icons.board}} style={stylesBase.iconStyle}/>}
+            renderSelectedIcon={() => <Image source={{uri:icons.boardActive}} style={stylesBase.iconStyle}/>}
+            onPress={() => {this.setState({selectTab:'usbox'})}}
+            selected={this.state.selectTab === 'usbox'}
+            selectedTitleStyle={stylesBase.selectedTitleStyle}
+          >
+            <Navigator
+              initialRoute={{name:'北美票房',component:USBox}}
+              configureScene={() =>{
+                return Navigator.SceneConfigs.PushFromRight
+              }}
+              renderScene={(route,navigator) => {
+                let Component = route.component;
+                return <Component {...route.passProps} navigator={navigator}/>
+              }}
+            />
+          </TabNavigator.Item>
+
+
+        </TabNavigator>
     );
   }
 }

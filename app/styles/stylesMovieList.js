@@ -49,6 +49,18 @@ let stylesMovieList = StyleSheet.create({
         color:'#db3838',
         fontSize:15
     },
-
+    itemDetail: {
+        borderBottomWidth: 1,
+        borderColor: 'rgba(100, 53, 201, 0.1)',
+        paddingBottom: 6,
+        paddingTop: 6,
+    },
+    itemDetailText: {
+        fontSize: 14,
+        fontFamily: 'Helvetica Neue',
+        color: 'rgba(0, 0, 0, 0.8)',
+        fontWeight: '300',
+        lineHeight: 26
+    }
 })
 export {stylesMovieList as default}
